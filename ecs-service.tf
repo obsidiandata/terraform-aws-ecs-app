@@ -17,6 +17,11 @@ resource "aws_ecs_service" "default" {
       security_groups = var.security_groups == "" ? null : var.security_groups
     }
   }
+  
+  ordered_placement_strategy {
+    type  = "binpack"
+    field = "memory"
+  }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.green.arn
